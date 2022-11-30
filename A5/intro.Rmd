@@ -1,0 +1,70 @@
+---
+title: "intro"
+output: html_document
+date: "2022-11-28"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+climate <- read.csv("https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv")
+```
+
+### Introduction
+Climate change is a huge problem in our society today, it will impact a lot of things such as food production, sea levels, and human heath. One of the primary cause of climate change is CO2 emissions, this report will focus on the trends of CO2 emissions. Specifically, I am interested in the trends of CO2 emissions in the world from 1870 to now.
+
+### Interested Variable
+In this report, I want to focus on the emissions of carbon dioxide from coal, oil, gas, flaring, and land use. To do that, I will need to use 5 different variable from the data set: flaring_co2, gas_co2, land_use_change_co2, oil_co2, coal_co2. Beside that, I will also need to use the country and year variables.
+
+### Questions to helps me understand the data set
+To better understand my dataset, I will do some data wrangling base on the following questions.
+
+- when does the emissions of carbon dioxide from coal reach the peak in the world?
+
+```{r q1, echo=FALSE}
+q1 <- climate %>% 
+  select(country, year, coal_co2) %>% 
+  filter(country == "World") %>% 
+  group_by(year) %>% 
+  na.omit() %>% 
+  summarize(coal_co2 = max(coal_co2)) %>% 
+  arrange(-coal_co2) %>% 
+  head()
+kable(q1)
+```
+
+After some data wrangling, I found that the co2 emission from coal reach the highest point at the year 2014.
+
+- How much has the emissions of carbon dioxide from oil change over the last 100 years in the world?
+
+```{r q2, echo=FALSE}
+
+q2 <- climate %>% 
+  filter(country == "World",
+         year >= 1921, year <= 2021) %>% 
+  select(year, oil_co2)
+
+lm(oil_co2 ~ year, data = q2)
+
+```
+
+For this question, I am focus on the world's changes of emissions of carbon dioxide from oil over the last 100 years, to do that, I use the lm function to find the slope of the change, and it tells that for every year increase, the emissions of carbon dioxide from oil will increase by 143.8 million tonnes. 
+
+- What is the average value of my variable in different countries at 2021?
+
+```{r q3, echo=FALSE}
+q3 <- climate %>% 
+  filter(year == 2021) %>% 
+  select(country, gas_co2) %>% 
+  na.omit() %>% 
+  group_by(country) %>% 
+  summarize(gas_co2 = mean(gas_co2)) %>% 
+  arrange(-gas_co2)
+  
+
+kable(q3)
+```
+
+
+As we can see, if we ignore the data that are base on region, we can see that the US has most co2 emissions from gas, 1637.038 million tonnes, in 2021, Russia and China following up. If we assume that 0 value is missing data, than Suriname has the lowest co2 emissions from gas. 0.011 million tonnes.
+
