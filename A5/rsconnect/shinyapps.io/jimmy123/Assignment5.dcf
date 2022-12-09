@@ -5,10 +5,9 @@ account: jimmy123
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 7768420
-bundleId: 6570686
+bundleId: 6617998
 url: https://jimmy123.shinyapps.io/Assignment5/
-when: 1669780567.96763
-lastSyncTime: 1669780567.96764
+when: 1670627396.40427
+lastSyncTime: 1670627396.40429
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: intro.html|intro.md

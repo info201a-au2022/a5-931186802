@@ -1,12 +1,11 @@
 library(shiny)
-library(shinydashboard)
 library(markdown)
 source("app_server.R")
 
 intro <- tabPanel("Introduction",
                   htmlOutput("intro"))
 
-yearRange <- range(data$year)
+yearRange <- range(climate$year)
 
 linePlot_sidebar <- sidebarPanel(
 

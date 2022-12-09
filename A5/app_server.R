@@ -6,7 +6,6 @@ library(markdown)
 climate <- read.csv("https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv")
 
 
-# Define server logic required to draw a histogram
 server <- function(input, output) {
   
   
@@ -70,6 +69,7 @@ server <- function(input, output) {
              "CO2 emissions From Land Use" = landUse_plot,
              "CO2 emissions From Oil" = oil_plot,
              "CO2 emissions From Coal" = coal_plot)
+      #Got idea of submit button from https://stackoverflow.com/questions/69414472/select-plot-from-a-dropdown-menu-in-rshiny
     })
     
   })
